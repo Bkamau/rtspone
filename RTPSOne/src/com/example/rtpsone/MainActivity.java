@@ -37,7 +37,6 @@ public class MainActivity extends Activity {
      
    
   } catch (Exception e) {
-   Log.e("----------------------", e.toString());
    e.printStackTrace();
   }
  }
