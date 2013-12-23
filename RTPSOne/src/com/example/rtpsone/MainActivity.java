@@ -22,23 +22,9 @@ public class MainActivity extends Activity {
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.activity_main);
-  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-  StrictMode.setThreadPolicy(policy);
-  try {   
-      AudioManager audio =  (AudioManager) getSystemService(Context.AUDIO_SERVICE); 
-      audio.setMode(AudioManager.MODE_IN_COMMUNICATION);
-      AudioGroup audioGroup = new AudioGroup();
-      audioGroup.setMode(AudioGroup.MODE_NORMAL);        
-      AudioStream audioStream = new AudioStream(InetAddress.getByAddress(getLocalIPAddress ()));
-      audioStream.setCodec(AudioCodec.PCMU);
-      audioStream.setMode(RtpStream.MODE_NORMAL);
-      audioStream.associate(InetAddress.getByAddress(new byte[] {(byte)192, (byte)168, (byte)1, (byte)100 }), 22222);
-      audioStream.join(audioGroup);
-     
-   
-  } catch (Exception e) {
-   e.printStackTrace();
-  }
+  
+  audStream();
+
  }
 public static byte[] getLocalIPAddress () {
     byte ip[]=null;
@@ -58,6 +44,25 @@ public static byte[] getLocalIPAddress () {
        return ip;
        
  }
+public void audStream(){
+	  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	  StrictMode.setThreadPolicy(policy);
+	  try {   
+	      AudioManager audio =  (AudioManager) getSystemService(Context.AUDIO_SERVICE); 
+	      audio.setMode(AudioManager.MODE_IN_COMMUNICATION);
+	      AudioGroup audioGroup = new AudioGroup();
+	      audioGroup.setMode(AudioGroup.MODE_NORMAL);        
+	      AudioStream audioStream = new AudioStream(InetAddress.getByAddress(getLocalIPAddress ()));
+	      audioStream.setCodec(AudioCodec.PCMU);
+	      audioStream.setMode(RtpStream.MODE_NORMAL);
+	      audioStream.associate(InetAddress.getByAddress(new byte[] {(byte)192, (byte)168, (byte)1, (byte)100 }), 22222);
+	      audioStream.join(audioGroup);
+	     
+	   
+	  } catch (Exception e) {
+	   e.printStackTrace();
+	  }
+}
  
 
 }
